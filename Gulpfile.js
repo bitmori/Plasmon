@@ -24,14 +24,18 @@ gulp.task('clean:css', function () {
     ]);
 });
 
-gulp.task('sass', function () {
-    gulp.src('./main/sass/**/*.scss')
+gulp.task('sass:photon', function () {
+    gulp.src('./photon/sass/photon.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./dist/css'));
 });
 
 gulp.task('copy:assets', function () {
-    return gulp.src('./main/assets/**/*.*').pipe(gulp.dest('dist'));
+    return gulp.src('./main/assets/**/*.*').pipe(gulp.dest('./dist'));
+});
+
+gulp.task('copy:fonts', function () {
+    return gulp.src('./photon/fonts/**/*.*').pipe(gulp.dest('./dist/fonts'));
 });
 
 gulp.task('build', function () {
@@ -45,7 +49,7 @@ gulp.task('clean-build:js', function(callback) {
 });
 
 gulp.task('clean-build:all', function (callback) {
-    runSequence('clean:all', 'sass', 'build', 'copy:assets', callback);
+    runSequence('clean:all', ['sass:photon', 'build', 'copy:assets', 'copy:fonts'], callback);
 });
 
 gulp.task('default', ['clean-build:js']);
