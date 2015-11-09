@@ -20,7 +20,14 @@ module.exports = {
     module: {
         loaders: [
             // BABEL-ES6+REACT
-            { test: /\.jsx?$/, exclude: /node_modules/, loader: "babel-loader"}
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: "babel-loader",
+                query: {
+                    "presets": ["es2015", "react"]
+                }
+            }
         ]
     }
 };
